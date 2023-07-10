@@ -53,7 +53,7 @@ const PostMovieDetails = () => {
         imageURL: image,
         videoURL: video,
       };
-      console.log(movie);
+      //console.log(movie);
       mutate(movie);
       setmovieDetails({
         title: "",
