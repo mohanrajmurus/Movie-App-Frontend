@@ -31,7 +31,7 @@ const Banner = () => {
                   src={item.thumbnail}
                   alt="avenger poster"
                   className={`${
-                    slideIndex === i + 1 ? "w-full h-96 object-fill" : "hidden"
+                    slideIndex === i + 1 ? "w-full h-64 lg:h-96 object-fill" : "hidden"
                   }`}
                   onClick={()=> navigate(`/movie/${item._id}`)}
                 />

@@ -17,7 +17,7 @@ const Row = () => {
           return (
             <div
               key={i}
-              className="w-1/6 mr-5 mb-6 cursor-pointer hover:scale-105 transition-all ease-out duration-200 border-b-2 border-red-400"
+              className="w-full md:w-1/4 lg:w-1/6 mr-5 mb-6 cursor-pointer hover:scale-105 transition-all ease-out duration-200 border-b-2 border-red-400"
               onClick={() => navigate(`/movie/${_id}`)}
             >
               <img
