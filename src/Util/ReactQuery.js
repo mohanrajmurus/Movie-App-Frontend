@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useQuery } from "react-query";
 const url = API__URL;
+
+
 export const getAllMovies = () => {
   return useQuery({
     queryKey: ["movies"],
