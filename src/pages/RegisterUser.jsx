@@ -1,8 +1,11 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 const RegisterUser = () => {
   return (
-    <div>RegisterUser</div>
+    <div className='text-white'>RegisterUser
+      <Outlet/>
+    </div>
   )
 }
 
