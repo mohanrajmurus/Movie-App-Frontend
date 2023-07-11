@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { GrNext, GrPrevious } from "react-icons/gr";
-import { getAllMovies } from "../../Util/ReactQuery";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react"
+import { GrNext, GrPrevious } from "react-icons/gr"
+import { getAllMovies } from "../../Util/ReactQuery"
+import { useNavigate } from "react-router-dom"
 const Banner = () => {
   const navigate = useNavigate()
-  const { isLoading, isError, error, data } = getAllMovies();
-  const [slideIndex, setSlideIndex] = useState(1);
-  
+  const { isLoading, isError, error, data } = getAllMovies()
+  const [slideIndex, setSlideIndex] = useState(1)
+
   const nextSlide = () => {
-    if (slideIndex === data.length) setSlideIndex(1);
-    else setSlideIndex(slideIndex + 1);
-  };
+    if (slideIndex === data.length) setSlideIndex(1)
+    else setSlideIndex(slideIndex + 1)
+  }
   const prevSlide = () => {
     if (slideIndex === 1) {
-      setSlideIndex(data.length);
-    } else setSlideIndex(slideIndex - 1);
-  };
+      setSlideIndex(data.length)
+    } else setSlideIndex(slideIndex - 1)
+  }
   return (
     <div className="w-11/12 mx-auto flex flex-col items-center space-y-5">
       {isLoading ? (
@@ -31,12 +31,14 @@ const Banner = () => {
                   src={item.thumbnail}
                   alt="avenger poster"
                   className={`${
-                    slideIndex === i + 1 ? "w-full h-64 lg:h-96 object-fill" : "hidden"
+                    slideIndex === i + 1
+                      ? "w-full h-64 lg:h-96 object-fill"
+                      : "hidden"
                   }`}
-                  onClick={()=> navigate(`/movie/${item._id}`)}
+                  onClick={() => navigate(`/movie/${item._id}`)}
                 />
               </div>
-            );
+            )
           })}
           <span
             onClick={prevSlide}
@@ -53,7 +55,7 @@ const Banner = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Banner;
+export default Banner

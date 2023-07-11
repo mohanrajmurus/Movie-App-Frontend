@@ -1,16 +1,16 @@
-import React from 'react'
-import { MdDelete } from 'react-icons/md'
-import { useMutation, useQueryClient } from 'react-query'
-import {deleteMovie, getAllMovies} from '../../util/ReactQuery'
-import { useNavigate } from 'react-router-dom'
+import React from "react"
+import { MdDelete } from "react-icons/md"
+import { useMutation, useQueryClient } from "react-query"
+import { deleteMovie, getAllMovies } from "../../util/ReactQuery"
+import { useNavigate } from "react-router-dom"
 const DeleteMovie = () => {
-  const { isLoading, isError, error, data } = getAllMovies();
-  const navigate = useNavigate();
+  const { isLoading, isError, error, data } = getAllMovies()
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const {mutate} = useMutation(deleteMovie,{
-    onSuccess:()=>{
-      queryClient.invalidateQueries('movies')
-    }
+  const { mutate } = useMutation(deleteMovie, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("movies")
+    },
   })
   return (
     <div className="w-11/12 mx-auto flex flex-wrap justify-center mt-10">
@@ -20,8 +20,7 @@ const DeleteMovie = () => {
         <span>{error.message}</span>
       ) : (
         data.map((item, i) => {
-          
-          const { title, imageURL, _id } = item;
+          const { title, imageURL, _id } = item
           return (
             <div
               key={i}
@@ -36,16 +35,20 @@ const DeleteMovie = () => {
               <button className="text-white w-full text-center text-xl font-light italic p-2">
                 {title}
               </button>
-              <span className="absolute top-0 right-1 bg-white p-1" onClick={(e)=>{
-                e.stopPropagation()
-                mutate(_id)
-              }}><MdDelete size={20}/></span>
+              <span
+                className="absolute top-0 right-1 bg-white p-1"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  mutate(_id)
+                }}
+              >
+                <MdDelete size={20} />
+              </span>
             </div>
-          );
+          )
         })
       )}
     </div>
-
   )
 }
 

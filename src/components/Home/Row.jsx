@@ -1,10 +1,10 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { getAllMovies } from "../../util/ReactQuery";
+import React from "react"
+import { useNavigate } from "react-router-dom"
+import { getAllMovies } from "../../util/ReactQuery"
 
 const Row = () => {
-  const navigate = useNavigate();
-  const { isLoading, isError, error, data } = getAllMovies();
+  const navigate = useNavigate()
+  const { isLoading, isError, error, data } = getAllMovies()
 
   return (
     <div className="w-11/12 mx-auto flex flex-wrap justify-start mt-10">
@@ -14,7 +14,7 @@ const Row = () => {
         <span>{error.message}</span>
       ) : (
         data.map((item, i) => {
-          const { title, imageURL, _id } = item;
+          const { title, imageURL, _id } = item
           return (
             <div
               key={i}
@@ -30,11 +30,11 @@ const Row = () => {
                 {title}
               </button>
             </div>
-          );
+          )
         })
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Row;
+export default Row

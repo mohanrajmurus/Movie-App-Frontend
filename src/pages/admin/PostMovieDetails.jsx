@@ -1,24 +1,22 @@
-import React, { useState } from "react";
-import { useQueryClient, useMutation } from "react-query";
-import { addNewMovie } from "../../util/ReactQuery";
-import { getImageURL, getVideoURL } from "../../util/cloudinary";
-import {Outlet, useNavigate} from 'react-router-dom'
-
+import React, { useState } from "react"
+import { useQueryClient, useMutation } from "react-query"
+import { addNewMovie } from "../../util/ReactQuery"
+import { getImageURL, getVideoURL } from "../../util/cloudinary"
+import { Outlet, useNavigate } from "react-router-dom"
 
 const PostMovieDetails = () => {
-  const queryClient = useQueryClient();
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const { mutate ,isLoading} = useMutation(addNewMovie, {
+  const { mutate, isLoading } = useMutation(addNewMovie, {
     onSuccess: (data) => {
-      console.log(data);
-      console.log("Success");
-      queryClient.invalidateQueries("movies");
+      console.log(data)
+      console.log("Success")
+      queryClient.invalidateQueries("movies")
     },
     onError: () => {
-      console.log("Error");
+      console.log("Error")
     },
-
-  });
+  })
   const [movieDetails, setmovieDetails] = useState({
     title: "",
     genre: "",
@@ -26,31 +24,29 @@ const PostMovieDetails = () => {
     thumbnail: "",
     imageURL: "",
     videoURL: "",
-  });
+  })
   const handleChange = (e) => {
     setmovieDetails({
       ...movieDetails,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
   const handleFile = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+    const file = e.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
     reader.onloadend = () => {
       setmovieDetails({
         ...movieDetails,
         [e.target.name]: reader.result,
-      });
-      
+      })
     }
-  };
+  }
   const submitData = async () => {
     try {
-      const image = await getImageURL(movieDetails.imageURL);
-      const thumb = await getImageURL(movieDetails.thumbnail);
-     const video = await getVideoURL(movieDetails.videoURL);
-     
+      const image = await getImageURL(movieDetails.imageURL)
+      const thumb = await getImageURL(movieDetails.thumbnail)
+      const video = await getVideoURL(movieDetails.videoURL)
 
       const movie = {
         title: movieDetails.title,
@@ -59,8 +55,8 @@ const PostMovieDetails = () => {
         thumbnail: thumb,
         imageURL: image,
         videoURL: video,
-      };
-      mutate(movie); 
+      }
+      mutate(movie)
       setmovieDetails({
         title: "",
         genre: "",
@@ -68,19 +64,18 @@ const PostMovieDetails = () => {
         thumbnail: "",
         imageURL: "",
         videoURL: "",
-      });
-      navigate('/')
+      })
+      navigate("/")
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
   return (
     <div className="w-2/5 mx-auto">
-      
       <p className="w-full text-white font-extrabold text-2xl text-center">
         Add New Movie to DataBase
       </p>
-      {isLoading?<span className="text-white"> Loading....</span>:<></>}
+      {isLoading ? <span className="text-white"> Loading....</span> : <></>}
       <div className="mt-10">
         <div className="flex flex-col space-y-8">
           <div className="w-4/5 flex justify-between items-center ">
@@ -156,9 +151,9 @@ const PostMovieDetails = () => {
           </div>
         </div>
       </div>
-      <Outlet/>
+      <Outlet />
     </div>
-  );
-};
+  )
+}
 
-export default PostMovieDetails;
+export default PostMovieDetails

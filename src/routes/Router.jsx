@@ -1,10 +1,10 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Layout from "../pages/Layout";
-import HomePage from "../pages/HomePage";
-import React from "react";
-import MovieDetailsPage from '../pages/MovieDetailsPage'
-import PostMovieDetails from "../pages/admin/PostMovieDetails";
-import DeleteMovie from '../pages/admin/DeleteMovie'
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import Layout from "../pages/Layout"
+import HomePage from "../pages/HomePage"
+import React from "react"
+import MovieDetailsPage from "../pages/MovieDetailsPage"
+import PostMovieDetails from "../pages/admin/PostMovieDetails"
+import DeleteMovie from "../pages/admin/DeleteMovie"
 const Router = () => {
   const router = createBrowserRouter([
     {
@@ -16,26 +16,26 @@ const Router = () => {
           element: <HomePage />,
         },
         {
-            path:'movie/:id',
-            element:<MovieDetailsPage/>
+          path: "movie/:id",
+          element: <MovieDetailsPage />,
         },
         {
-          path:'admin',
-          children:[
+          path: "admin",
+          children: [
             {
-              index:true,
-              element:<PostMovieDetails/>,
+              index: true,
+              element: <PostMovieDetails />,
             },
             {
-              path:'movie',
-              element:<DeleteMovie/>
-            }
-          ]
-        }
+              path: "movie",
+              element: <DeleteMovie />,
+            },
+          ],
+        },
       ],
     },
-  ]);
-  return <RouterProvider router={router} />;
-};
+  ])
+  return <RouterProvider router={router} />
+}
 
-export default Router;
+export default Router
