@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useQueryClient, useMutation } from "react-query";
-import { addNewMovie } from "../Util/ReactQuery";
-import { getImageURL, getThumbnailURL, getVideoURL } from "../Util/cloudinary";
-import {useNavigate} from 'react-router-dom'
+import { addNewMovie } from "../../util/ReactQuery";
+import { getImageURL, getVideoURL } from "../../util/cloudinary";
+import {Outlet, useNavigate} from 'react-router-dom'
 
 
 const PostMovieDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate()
-  const { mutate } = useMutation(addNewMovie, {
+  const { mutate ,isLoading} = useMutation(addNewMovie, {
     onSuccess: (data) => {
       console.log(data);
       console.log("Success");
@@ -17,6 +17,7 @@ const PostMovieDetails = () => {
     onError: () => {
       console.log("Error");
     },
+
   });
   const [movieDetails, setmovieDetails] = useState({
     title: "",
@@ -33,17 +34,23 @@ const PostMovieDetails = () => {
     });
   };
   const handleFile = (e) => {
-    setmovieDetails({
-      ...movieDetails,
-      [e.target.name]: e.target.files[0],
-    });
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setmovieDetails({
+        ...movieDetails,
+        [e.target.name]: reader.result,
+      });
+      
+    }
   };
-
   const submitData = async () => {
     try {
       const image = await getImageURL(movieDetails.imageURL);
-      const video = await getVideoURL(movieDetails.videoURL);
-      const thumb = await getThumbnailURL(movieDetails.thumbnail);
+      const thumb = await getImageURL(movieDetails.thumbnail);
+     const video = await getVideoURL(movieDetails.videoURL);
+     
 
       const movie = {
         title: movieDetails.title,
@@ -53,8 +60,7 @@ const PostMovieDetails = () => {
         imageURL: image,
         videoURL: video,
       };
-      //console.log(movie);
-      mutate(movie);
+      mutate(movie); 
       setmovieDetails({
         title: "",
         genre: "",
@@ -70,9 +76,11 @@ const PostMovieDetails = () => {
   };
   return (
     <div className="w-2/5 mx-auto">
+      
       <p className="w-full text-white font-extrabold text-2xl text-center">
         Add New Movie to DataBase
       </p>
+      {isLoading?<span className="text-white"> Loading....</span>:<></>}
       <div className="mt-10">
         <div className="flex flex-col space-y-8">
           <div className="w-4/5 flex justify-between items-center ">
@@ -148,6 +156,7 @@ const PostMovieDetails = () => {
           </div>
         </div>
       </div>
+      <Outlet/>
     </div>
   );
 };

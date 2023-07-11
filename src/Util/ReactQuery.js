@@ -2,7 +2,6 @@ import axios from "axios";
 import { useQuery } from "react-query";
 const url = API__URL;
 
-
 export const getAllMovies = () => {
   return useQuery({
     queryKey: ["movies"],
@@ -22,7 +21,10 @@ export const getMovieById = (id) => {
     },
   });
 };
-
+export const deleteMovie = async (id) => {
+  const { data } = await axios.delete(`${url}/movie/${id}`);
+  return data;
+};
 export const addNewMovie = async (movie) => {
   const { data } = await axios.post(`${url}/addmovie`, movie);
   return data;
