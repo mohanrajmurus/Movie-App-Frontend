@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { GrNext, GrPrevious } from "react-icons/gr"
-import { getAllMovies } from "../../Util/ReactQuery"
+import { getAllMovies } from "../../Util/reactQuery"
 import { useNavigate } from "react-router-dom"
 const Banner = () => {
   const navigate = useNavigate()

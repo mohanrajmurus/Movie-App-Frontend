@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useQueryClient, useMutation } from "react-query"
-import { addNewMovie } from "../../util/ReactQuery"
+import { addNewMovie } from "../../util/reactQuery"
 import { getImageURL, getVideoURL } from "../../util/cloudinary"
 import { Outlet, useNavigate } from "react-router-dom"
 
