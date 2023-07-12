@@ -29,7 +29,9 @@ const LoginPage = () => {
             />
             <Btn value={"Login"} type={"submit"} width={"full"} />
           </form>
-          <LoginWithBtn AuthProvider={"span"} text={"Forgot Password"}  />
+         <div className="w-1/2 md:w-full flex justify-center" onClick={()=> navigate('/user/resetpassword')}>
+         <LoginWithBtn AuthProvider={"span"} text={"Forgot Password"} />
+         </div>
           <span className="text-gray-200">
             No account with us?{" "}
             <span
