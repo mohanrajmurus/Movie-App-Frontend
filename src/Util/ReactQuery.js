@@ -25,6 +25,10 @@ export const createAccount = async(user) => {
   const {data} = await axios.post(`${url}/user`,user)
   return data
 }
+export const loginAccount = async(user) => {
+  const {data} = await axios.post(`${url}/user/login`,user)
+  return data
+}
 export const deleteMovie = async (id) => {
   const { data } = await axios.delete(`${url}/movie/${id}`)
   return data
