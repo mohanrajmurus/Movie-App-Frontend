@@ -6,7 +6,7 @@ import { FaApple } from "react-icons/fa"
 import LoginWithBtn from "../components/LoginWithBtn"
 import Btn from "../components/Btn"
 import {useMutation} from 'react-query'
-import {createAccount} from '../util/ReactQuery'
+import {createAccount} from '../util/reactQuery'
 const RegisterUser = () => {
   const {isLoading,mutate} = useMutation(createAccount,{
     onSuccess:() => {
