@@ -9,7 +9,7 @@ const PostMovieDetails = () => {
   const navigate = useNavigate()
   const user = queryClient.getQueryData('user')
   useEffect(() => {
-    if(!user.isAdmin){
+    if(!user?.isAdmin){
       navigate('/')
     }
   })
