@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { MdDelete } from "react-icons/md"
 import { useMutation, useQueryClient } from "react-query"
 import { deleteMovie, getAllMovies } from "../../util/ReactQuery"
@@ -7,6 +7,12 @@ const DeleteMovie = () => {
   const { isLoading, isError, error, data } = getAllMovies()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const user = queryClient.getQueryData('user')
+  useEffect(() => {
+    if(!user.isAdmin){
+      navigate('/')
+    }
+  })
   const { mutate } = useMutation(deleteMovie, {
     onSuccess: () => {
       queryClient.invalidateQueries("movies")

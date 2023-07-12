@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useQueryClient, useMutation } from "react-query"
 import { addNewMovie } from "../../util/ReactQuery"
 import { getImageURL, getVideoURL } from "../../util/cloudinary"
@@ -7,9 +7,16 @@ import { Outlet, useNavigate } from "react-router-dom"
 const PostMovieDetails = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
+  const user = queryClient.getQueryData('user')
+  useEffect(() => {
+    if(!user.isAdmin){
+      navigate('/')
+    }
+  })
+
   const { mutate } = useMutation(addNewMovie, {
     onSuccess: (data) => {
-      console.log(data)
+      //console.log(data)
       console.log("Success")
       queryClient.invalidateQueries("movies")
     },
@@ -47,16 +54,18 @@ const PostMovieDetails = () => {
       const image = await getImageURL(movieDetails.imageURL)
       const thumb = await getImageURL(movieDetails.thumbnail)
       const video = await getVideoURL(movieDetails.videoURL)
-
-      const movie = {
+      
+      const obj = {
         title: movieDetails.title,
         genre: movieDetails.genre,
         description: movieDetails.description,
         thumbnail: thumb,
         imageURL: image,
         videoURL: video,
+        token:user.token
       }
-      mutate(movie)
+      console.log(obj);
+      mutate(obj)
       setmovieDetails({
         title: "",
         genre: "",
