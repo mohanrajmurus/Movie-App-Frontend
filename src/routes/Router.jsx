@@ -5,9 +5,9 @@ import React from "react"
 import MovieDetailsPage from "../pages/MovieDetailsPage"
 import PostMovieDetails from "../pages/admin/PostMovieDetails"
 import DeleteMovie from "../pages/admin/DeleteMovie"
-import LoginPage from '../pages/LoginPage'
-import RegisterUser from '../pages/RegisterUser'
-
+import LoginPage from "../pages/LoginPage"
+import RegisterUser from "../pages/RegisterUser"
+import ResetPassword from "../pages/ResetPassword"
 const Router = () => {
   const router = createBrowserRouter([
     {
@@ -36,18 +36,22 @@ const Router = () => {
           ],
         },
         {
-          path:'user',
-          children:[
+          path: "user",
+          children: [
             {
-              index:true,
-              element:<RegisterUser/>
+              index: true,
+              element: <RegisterUser />,
             },
             {
-              path:'login',
-              element:<LoginPage/>
-            }
-          ]
-        }
+              path: "login",
+              element: <LoginPage />,
+            },
+            {
+              path: "resetpassword",
+              element: <ResetPassword />,
+            },
+          ],
+        },
       ],
     },
   ])
