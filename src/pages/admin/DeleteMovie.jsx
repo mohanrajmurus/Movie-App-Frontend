@@ -1,8 +1,9 @@
 import React, { useEffect } from "react"
 import { MdDelete } from "react-icons/md"
 import { useMutation, useQueryClient } from "react-query"
-import { deleteMovie, getAllMovies } from "../../util/ReactQuery"
+
 import { useNavigate } from "react-router-dom"
+import { deleteMovie, getAllMovies } from "../../util/ReactQuery"
 const DeleteMovie = () => {
   const { isLoading, isError, error, data } = getAllMovies()
   const navigate = useNavigate()
