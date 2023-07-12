@@ -7,7 +7,7 @@ import { Outlet, useNavigate } from "react-router-dom"
 const PostMovieDetails = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const { mutate, isLoading } = useMutation(addNewMovie, {
+  const { mutate } = useMutation(addNewMovie, {
     onSuccess: (data) => {
       console.log(data)
       console.log("Success")
@@ -75,7 +75,7 @@ const PostMovieDetails = () => {
       <p className="w-full text-white font-extrabold text-2xl text-center">
         Add New Movie to DataBase
       </p>
-      {isLoading ? <span className="text-white"> Loading....</span> : <></>}
+      
       <div className="mt-10">
         <div className="flex flex-col space-y-8">
           <div className="w-4/5 flex justify-between items-center ">
