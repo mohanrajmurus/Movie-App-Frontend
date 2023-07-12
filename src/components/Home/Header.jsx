@@ -18,13 +18,14 @@ const Header = () => {
           Movie Time
         </span>
         <div className="relative">
-          {!user ? <span onClick={() => navigate('user/login')}><Btn value={'Login'}/></span>:<img src={avatar} alt="prfile-pic" className="w-10 h-10" onClick={()=>setIsOpen(!isOpen)}/>}
+          {!user ? <span onClick={() => navigate('user/login')}><Btn value={'Login'}/></span>:<img src={avatar} alt="prfile-pic" className="w-10 h-10 cursor-pointer" onClick={()=>setIsOpen(!isOpen)}/>}
           {isOpen ? <div className="w-52 text-white absolute top-12 rounded-2xl right-1 flex flex-col items-center space-y-3 bg-gray-800">
             <span className="w-full text-center text-lg font-semibold px-3 py-2 hover:bg-red-500 cursor-pointer rounded-2xl">Profile</span>
             <span className="w-full text-center text-lg font-semibold px-3 py-2 hover:bg-red-500 cursor-pointer rounded-2xl" onClick={() => {
               localStorage.removeItem('user')
               queryClient.removeQueries({queryKey:['user']})
               setIsOpen(false)
+              navigate('/')
             }}>Logout</span>
           </div>:<></>}
         </div>
