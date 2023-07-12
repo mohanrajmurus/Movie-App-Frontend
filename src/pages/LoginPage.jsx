@@ -5,11 +5,13 @@ import { FaApple } from "react-icons/fa"
 import LoginWithBtn from "../components/LoginWithBtn"
 import Btn from "../components/Btn"
 import {loginAccount} from '../util/ReactQuery'
-import {useMutation} from 'react-query'
+import {useMutation, useQueryClient} from 'react-query'
 const LoginPage = () => {
+  const queryClient = useQueryClient()
   const {mutate,isLoading} = useMutation(loginAccount,{
     onSuccess:(data) => {
       localStorage.setItem('user',JSON.stringify(data))
+      queryClient.setQueryData('user',data)
       navigate('/')
     },
     onError:(err) => {
