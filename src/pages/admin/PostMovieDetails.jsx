@@ -80,14 +80,14 @@ const PostMovieDetails = () => {
     }
   }
   return (
-    <div className="w-2/5 mx-auto">
+    <div className="w-full lg:w-2/5 mx-auto">
       <p className="w-full text-white font-extrabold text-2xl text-center">
         Add New Movie to DataBase
       </p>
       
       <div className="mt-10">
         <div className="flex flex-col space-y-8">
-          <div className="w-4/5 flex justify-between items-center ">
+          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
             <label className="text-white">Movie Title:</label>
             <input
               type="text"
@@ -98,7 +98,7 @@ const PostMovieDetails = () => {
               value={movieDetails.title}
             />
           </div>
-          <div className="w-4/5 flex justify-between items-center ">
+          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
             <label className="text-white">Movie Genre:</label>
             <input
               type="text"
@@ -109,7 +109,7 @@ const PostMovieDetails = () => {
               value={movieDetails.genre}
             />
           </div>
-          <div className="w-4/5 flex justify-between items-center ">
+          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
             <label className="text-white">Movie Description:</label>
             <textarea
               type="text"
@@ -120,7 +120,7 @@ const PostMovieDetails = () => {
               onChange={handleChange}
             />
           </div>
-          <div className="w-4/5 flex justify-between items-center ">
+          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
             <label className="text-white">Movie Poster:</label>
             <input
               type="file"
@@ -130,7 +130,7 @@ const PostMovieDetails = () => {
               className="text-gray-300"
             />
           </div>
-          <div className="w-4/5 flex justify-between items-center ">
+          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
             <label className="text-white">Movie Image:</label>
             <input
               type="file"
@@ -140,7 +140,7 @@ const PostMovieDetails = () => {
               className="text-gray-300"
             />
           </div>
-          <div className="w-4/5 flex justify-between items-center ">
+          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
             <label className="text-white">Video File:</label>
             <input
               type="file"
