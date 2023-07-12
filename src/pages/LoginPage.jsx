@@ -7,7 +7,7 @@ import Btn from "../components/Btn"
 const LoginPage = () => {
   const navigate = useNavigate()
   return (
-    <div className="w-11/12">
+    <div className="w-11/12 mx-auto">
       <div className="w-full ml-4 lg:w-1/2 lg:mx-auto">
         <div className="w-full flex flex-col items-center space-y-8">
           <span className="text-white text-2xl font-bold">Login</span>
@@ -29,11 +29,11 @@ const LoginPage = () => {
             />
             <Btn value={"Login"} type={"submit"} width={"full"} />
           </form>
-          <LoginWithBtn AuthProvider={"span"} text={"Forgot Password"} />
+          <LoginWithBtn AuthProvider={"span"} text={"Forgot Password"}  />
           <span className="text-gray-200">
             No account with us?{" "}
             <span
-              className="text-sky-400 hover:underline cursor-pointer"
+              className="text-sky-400 hover:underline cursor-pointer "
               onClick={() => navigate("/user")}
             >
               Signup
