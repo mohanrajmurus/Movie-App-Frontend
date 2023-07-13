@@ -7,15 +7,17 @@ import Btn from "../components/Btn"
 import {loginAccount} from '../utils/reactQuery'
 import {useMutation, useQueryClient} from 'react-query'
 const LoginPage = () => {
+  const [errorMsg, setErrorMsg] = useState(undefined)
   const queryClient = useQueryClient()
   const {mutate,isLoading} = useMutation(loginAccount,{
     onSuccess:(data) => {
       localStorage.setItem('user',JSON.stringify(data))
       queryClient.setQueryData('user',data)
       navigate('/')
+      setErrorMsg(undefined)
     },
     onError:(err) => {
-      console.log(err.response.data);
+      setErrorMsg(err.response.data)
     }
   })
   const navigate = useNavigate()
@@ -46,6 +48,7 @@ const LoginPage = () => {
           <LoginWithBtn AuthProvider={FcGoogle} text={"Login With Google"} />
           <LoginWithBtn AuthProvider={FaApple} text={"Login With Apple"} />
           <span className="text-white">or</span>
+          {errorMsg && <span className="text-red-500 text-sm italic">{errorMsg}</span>}
           <form className="w-full md:w-1/2" onSubmit={submitData}>
             <input
               type="email"

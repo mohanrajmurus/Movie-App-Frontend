@@ -1,7 +1,9 @@
 import React, { useState } from "react"
 import Btn from "../components/Btn"
 import axios from "../utils/axios"
+import { useNavigate } from "react-router-dom"
 const ResetPassword = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [id, setid] = useState(undefined)
   const [password, setPassword] = useState("")
@@ -22,6 +24,8 @@ const ResetPassword = () => {
   const resetPassword = async (e) => {
     e.preventDefault()
     await axios.put(`/user/${id}`, { password })
+    setErrorMsg('Password changed sucessfully')
+    navigate('/user/login')
   }
 
   console.log(id)
