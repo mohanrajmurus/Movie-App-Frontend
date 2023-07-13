@@ -7,7 +7,7 @@ import { Outlet, useNavigate } from "react-router-dom"
 const PostMovieDetails = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const user = queryClient.getQueryData('user')
+  const user = JSON.parse(sessionStorage.getItem('user'))
   useEffect(() => {
     if(!user?.isAdmin){
       navigate('/')

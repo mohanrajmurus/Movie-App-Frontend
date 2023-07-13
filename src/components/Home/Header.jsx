@@ -5,7 +5,7 @@ import {useQueryClient} from 'react-query'
 import Btn from '../Btn';
 const Header = () => {
   const queryClient = useQueryClient()
-  const user = queryClient.getQueryData('user')
+  const user = JSON.parse(sessionStorage.getItem('user'))
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   return (
@@ -23,8 +23,7 @@ const Header = () => {
             <span className="w-full text-center text-lg font-semibold px-3 py-2 hover:bg-red-500 cursor-pointer rounded-2xl">Profile</span>
             {user?.isAdmin && <span className="w-full text-center text-lg font-semibold px-3 py-2 hover:bg-red-500 cursor-pointer rounded-2xl" onClick={() => navigate('admin')}>Add New Movie</span>}
             <span className="w-full text-center text-lg font-semibold px-3 py-2 hover:bg-red-500 cursor-pointer rounded-2xl" onClick={() => {
-              localStorage.removeItem('user')
-              queryClient.removeQueries({queryKey:['user']})
+              sessionStorage.removeItem('user')
               setIsOpen(false)
               navigate('/')
             }}>Logout</span>

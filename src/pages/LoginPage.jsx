@@ -8,11 +8,9 @@ import {loginAccount} from '../utils/reactQuery'
 import {useMutation, useQueryClient} from 'react-query'
 const LoginPage = () => {
   const [errorMsg, setErrorMsg] = useState(undefined)
-  const queryClient = useQueryClient()
   const {mutate,isLoading} = useMutation(loginAccount,{
     onSuccess:(data) => {
-      localStorage.setItem('user',JSON.stringify(data))
-      queryClient.setQueryData('user',data)
+      sessionStorage.setItem('user',JSON.stringify(data))
       navigate('/')
       setErrorMsg(undefined)
     },

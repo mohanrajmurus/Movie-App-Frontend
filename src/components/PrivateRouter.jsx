@@ -1,7 +1,7 @@
 import React from "react"
 import { Navigate, Outlet } from "react-router-dom"
 const PrivateRouter = () => {
-  const authToken = JSON.parse(localStorage.getItem("user"))?.token
+  const authToken = JSON.parse(sessionStorage.getItem("user"))?.token
 
   return (
     <div className="w-full">
