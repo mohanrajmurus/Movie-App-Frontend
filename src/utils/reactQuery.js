@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "./axios"
 import { useQuery } from "react-query"
 const url = API__URL
 
