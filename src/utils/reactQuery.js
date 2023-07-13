@@ -12,16 +12,11 @@ export const getAllMovies = () => {
   })
 }
 
-export const getMovieById = (id,token) => {
+export const getMovieById = (id) => {
   return useQuery({
-    queryKey: ["movie", id],
+    queryKey: ["movie",id],
     queryFn: async () => {
-      const config = {
-        headers:{
-          Authorization:`Bearer ${token}`
-        }
-      }
-      const { data } = await axios.get(`${url}/movie/${id}`,config)
+      const { data } = await axios.get(`${url}/movie/${id}`)
       return data
     },
   })
