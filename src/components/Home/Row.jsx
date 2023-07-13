@@ -9,7 +9,7 @@ const Row = () => {
   return (
     <div className="w-11/12 mx-auto flex flex-wrap justify-center mt-10">
       {isLoading ? (
-        <div className="border-4 border-gray-300 border-t-sky-400 rounded-full h-10 w-10 animate-spin text-center mt-10"></div>
+        <div className="border-4 border-gray-300 border-t-red-400 rounded-full h-10 w-10 animate-spin text-center mt-10"></div>
       ) : isError ? (
         <span>{error.message}</span>
       ) : (
