@@ -6,7 +6,7 @@ export const getAllMovies = () => {
   return useQuery({
     queryKey: ["movies"],
     queryFn: async () => {
-      const { data } = await axios.get(`${url}/allmovies`)
+      const { data } = await axios.get(`/allmovies`)
       return data
     },
   })
@@ -16,39 +16,24 @@ export const getMovieById = (id) => {
   return useQuery({
     queryKey: ["movie",id],
     queryFn: async () => {
-      const { data } = await axios.get(`${url}/movie/${id}`)
+      const { data } = await axios.get(`/movie/${id}`)
       return data
     },
   })
 }
 export const createAccount = async(user) => {
-  const {data} = await axios.post(`${url}/user`,user)
+  const {data} = await axios.post(`/user`,user)
   return data
 }
 export const loginAccount = async(user) => {
-  const {data} = await axios.post(`${url}/user/login`,user)
+  const {data} = await axios.post(`/user/login`,user)
   return data
 }
 export const deleteMovie = async (id) => {
-  const { data } = await axios.delete(`${url}/movie/${id}`)
+  const { data } = await axios.delete(`/movie/${id}`)
   return data
 }
-export const addNewMovie = async (obj) => {
-  const {token} = obj
-  const movie = {
-    title: obj.title,
-    genre: obj.genre,
-    description: obj.description,
-    thumbnail: obj.thumbnail,
-    imageURL: obj.imageURL,
-    videoURL: obj.videoURL,
-  }
-  
-  const config = {
-    headers:{
-      Authorization:`Bearer ${token}`
-    }
-  }
-  const { data } = await axios.post(`${url}/addmovie`, movie,config)
+export const addNewMovie = async (moviedata) => {
+  const { data } = await axios.post(`/addmovie`, moviedata)
   return data
 }
