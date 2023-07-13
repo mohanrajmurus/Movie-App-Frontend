@@ -18,6 +18,7 @@ const PostMovieDetails = () => {
     onSuccess: (data) => {
       //console.log(data)
       console.log("Success")
+      navigate("/")
       queryClient.invalidateQueries("movies")
     },
     onError: () => {
@@ -62,9 +63,7 @@ const PostMovieDetails = () => {
         thumbnail: thumb,
         imageURL: image,
         videoURL: video,
-        token:user.token
       }
-      console.log(obj);
       mutate(obj)
       setmovieDetails({
         title: "",
@@ -74,7 +73,6 @@ const PostMovieDetails = () => {
         imageURL: "",
         videoURL: "",
       })
-      navigate("/")
     } catch (error) {
       console.log(error)
     }

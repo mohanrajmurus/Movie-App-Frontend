@@ -10,7 +10,7 @@ const DeleteMovie = () => {
   const queryClient = useQueryClient()
   const user = queryClient.getQueryData('user')
   useEffect(() => {
-    if(!user.isAdmin){
+    if(!user?.isAdmin){
       navigate('/')
     }
   })
