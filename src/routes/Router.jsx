@@ -8,6 +8,7 @@ import DeleteMovie from "../pages/admin/DeleteMovie"
 import LoginPage from "../pages/LoginPage"
 import RegisterUser from "../pages/RegisterUser"
 import ResetPassword from "../pages/ResetPassword"
+import PrivateRouter from '../components/PrivateRouter'
 const Router = () => {
   const router = createBrowserRouter([
     {
@@ -19,8 +20,13 @@ const Router = () => {
           element: <HomePage />,
         },
         {
-          path: "movie/:id",
-          element: <MovieDetailsPage />,
+          element:<PrivateRouter/>,
+          children:[
+            {
+              path: "movie/:id",
+              element: <MovieDetailsPage />,
+            }
+          ]
         },
         {
           path: "admin",
