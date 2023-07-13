@@ -39,9 +39,9 @@ const RegisterUser = () => {
   })
  }
   return (
-    <div className="w-11/12 mx-auto">
-      <div className="w-full ml-4 lg:w-1/2 lg:mx-auto">
-        <div className="w-full flex flex-col items-center space-y-8">
+    <div className="w-full lg:w-11/12 mx-auto">
+      <div className="mx-auto w-full  lg:w-1/2">
+        <div className="w-11/12 lg:w-full flex flex-col items-center space-y-8 mx-auto">
           {isLoading ? <div className="border-4 border-gray-300 border-t-sky-400 rounded-full h-10 w-10 animate-spin text-center mt-10"></div>:<></>}
           <span className="text-white text-2xl font-bold">Create Account</span>
           <LoginWithBtn AuthProvider={FcGoogle} text={"Signup With Google"} />

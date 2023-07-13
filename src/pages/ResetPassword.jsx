@@ -30,9 +30,9 @@ const ResetPassword = () => {
 
   console.log(id)
   return (
-    <div className="w-11/12 mx-auto">
-      <div className="w-full ml-4 lg:w-1/2 lg:mx-auto">
-        <div className="w-full flex flex-col items-center space-y-8">
+    <div className="w-full lg:w-11/12 mx-auto">
+      <div className="mx-auto w-full  lg:w-1/2">
+        <div className="w-11/12 lg:w-full flex flex-col items-center space-y-8 mx-auto">
           <span className="text-white text-3xl font-bold">Reset Password</span>
           <span className="text-gray-300 italic">
             Enter the username associated with your account to change your

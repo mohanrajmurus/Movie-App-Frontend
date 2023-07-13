@@ -7,7 +7,7 @@ const App = () => {
   const data = JSON.parse(localStorage.getItem('user'))
   queryClient.setQueryData('user',data)
   return (
-    <div className='w-full'>
+    <div className='min-w-fit'>
      <Router/>
     </div>
   )
