@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { getAllMovies } from "../../util/reactQuery"
+import { getAllMovies } from "../../utils/reactQuery"
 
 const Row = () => {
   const navigate = useNavigate()

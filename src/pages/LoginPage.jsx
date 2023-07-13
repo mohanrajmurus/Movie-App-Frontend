@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc"
 import { FaApple } from "react-icons/fa"
 import LoginWithBtn from "../components/LoginWithBtn"
 import Btn from "../components/Btn"
-import {loginAccount} from '../util/reactQuery'
+import {loginAccount} from '../utils/reactQuery'
 import {useMutation, useQueryClient} from 'react-query'
 const LoginPage = () => {
   const queryClient = useQueryClient()

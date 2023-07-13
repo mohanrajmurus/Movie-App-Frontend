@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getMovieById } from "../Util/ReactQuery"
+import { getMovieById } from "../utils/reactQuery"
 import { BigPlayButton, LoadingSpinner, Player } from "video-react"
 import "../../node_modules/video-react/dist//video-react.css"
 import { useQueryClient } from "react-query"
