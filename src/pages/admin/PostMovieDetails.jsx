@@ -52,9 +52,9 @@ const PostMovieDetails = () => {
   }
   const submitData = async () => {
     try {
-      const image = await getImageURL(movieDetails.imageURL)
-      const thumb = await getImageURL(movieDetails.thumbnail)
-      const video = await getVideoURL(movieDetails.videoURL)
+      const image = await getImageURL(movieDetails.imageURL,`${movieDetails.title}_image`)
+      const thumb = await getImageURL(movieDetails.thumbnail,`${movieDetails.title}_poster`)
+      const video = await getVideoURL(movieDetails.videoURL,movieDetails.title)
       
       const obj = {
         title: movieDetails.title,

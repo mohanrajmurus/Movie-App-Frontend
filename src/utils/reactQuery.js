@@ -1,6 +1,5 @@
-import axios from "./axios"
+import { instance as axios } from './axios'
 import { useQuery } from "react-query"
-
 export const getAllMovies = () => {
   return useQuery({
     queryKey: ["movies"],
