@@ -8,7 +8,7 @@ const DeleteMovie = () => {
   const { isLoading, isError, error, data } = getAllMovies()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const user = queryClient.getQueryData('user')
+  const user = JSON.parse(sessionStorage.getItem('user'))
   useEffect(() => {
     if(!user?.isAdmin){
       navigate('/')

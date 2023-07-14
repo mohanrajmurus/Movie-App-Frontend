@@ -6,10 +6,13 @@ import LoginWithBtn from "../components/LoginWithBtn"
 import Btn from "../components/Btn"
 import {loginAccount} from '../utils/reactQuery'
 import {useMutation, useQueryClient} from 'react-query'
+import setAuthToken from "../utils/axios"
 const LoginPage = () => {
   const [errorMsg, setErrorMsg] = useState(undefined)
   const {mutate,isLoading} = useMutation(loginAccount,{
     onSuccess:(data) => {
+      console.log(data.token);
+      setAuthToken(data.token)
       sessionStorage.setItem('user',JSON.stringify(data))
       navigate('/')
       setErrorMsg(undefined)
