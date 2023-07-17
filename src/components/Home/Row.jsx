@@ -1,6 +1,8 @@
+/* eslint-disable no-unused-vars */
 import React from "react"
 import { useNavigate } from "react-router-dom"
 import { getAllMovies } from "../../utils/reactQuery"
+import setAuthToken from "../../utils/axios"
 
 const Row = () => {
   const navigate = useNavigate()
@@ -19,7 +21,12 @@ const Row = () => {
             <div
               key={i}
               className="w-full md:w-1/4 lg:w-1/6 mr-5 mb-6 cursor-pointer hover:scale-105 transition-all ease-out duration-200 border-b-2 border-red-400 relative"
-              onClick={() => navigate(`/movie/${_id}`)}
+              onClick={() => {
+                const token = JSON.parse(sessionStorage.getItem('user'))?.token;
+                setAuthToken(token)
+
+                navigate(`/movie/${_id}`)
+              }}
             >
               <img
                 src={imageURL}

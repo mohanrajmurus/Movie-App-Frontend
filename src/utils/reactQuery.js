@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { instance as axios } from './axios'
 import { useQuery } from "react-query"
 export const getAllMovies = () => {

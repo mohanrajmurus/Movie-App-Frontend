@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react"
 import { useQueryClient, useMutation } from "react-query"
 import { addNewMovie } from "../../utils/reactQuery"
