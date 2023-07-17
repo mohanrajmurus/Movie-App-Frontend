@@ -10,11 +10,27 @@ const PostMovieDetails = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const user = JSON.parse(sessionStorage.getItem('user'))
+  const [movieDetails, setmovieDetails] = useState({
+    title: "",
+    genre: "",
+    castandcrews:{},
+    description: "",
+    thumbnail: "",
+    imageURL: "",
+    videoURL: "",
+  })
+  const [castandcrews, setCastandcrews] = useState({
+    director:'',
+    music_dir:'',
+    producer:'',
+    cast:[]
+  })
+  const [cast,setCast] = useState('')
   useEffect(() => {
     if(!user?.isAdmin){
       navigate('/')
     }
-  })
+  },[])
 
   const { mutate } = useMutation(addNewMovie, {
     onSuccess: (data) => {
@@ -27,20 +43,18 @@ const PostMovieDetails = () => {
       console.log("Error")
     },
   })
-  const [movieDetails, setmovieDetails] = useState({
-    title: "",
-    genre: "",
-    description: "",
-    thumbnail: "",
-    imageURL: "",
-    videoURL: "",
-  })
   const handleChange = (e) => {
     setmovieDetails({
       ...movieDetails,
       [e.target.name]: e.target.value,
     })
   }
+  const handlecast = (e)=>{
+    setCastandcrews({
+      ...castandcrews,
+      [e.target.name]:e.target.value
+    })
+  }  
   const handleFile = (e) => {
     const file = e.target.files[0]
     const reader = new FileReader()
@@ -60,12 +74,14 @@ const PostMovieDetails = () => {
       
       const obj = {
         title: movieDetails.title,
+        castandcrews:castandcrews,
         genre: movieDetails.genre,
         description: movieDetails.description,
         thumbnail: thumb,
         imageURL: image,
         videoURL: video,
       }
+      console.log(obj);
       mutate(obj)
       setmovieDetails({
         title: "",
@@ -97,6 +113,56 @@ const PostMovieDetails = () => {
               onChange={handleChange}
               value={movieDetails.title}
             />
+          </div>
+          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
+            <label className="text-white">Movie Director:</label>
+            <input
+              type="text"
+              className="w-2/3 text-sm p-2 border-2 focus:border-red-400 outline-none rounded-sm"
+              placeholder="Director"
+              name="director"
+              onChange={handlecast}
+              value={castandcrews.director}
+            />
+          </div>
+          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
+            <label className="text-white">Music Director:</label>
+            <input
+              type="text"
+              className="w-2/3 text-sm p-2 border-2 focus:border-red-400 outline-none rounded-sm"
+              placeholder="Music Director"
+              name="music_dir"
+              onChange={handlecast}
+              value={castandcrews.music_dir}
+            />
+          </div>
+          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
+            <label className="text-white">Movie Producer:</label>
+            <input
+              type="text"
+              className="w-2/3 text-sm p-2 border-2 focus:border-red-400 outline-none rounded-sm"
+              placeholder="Producer"
+              name="producer"
+              onChange={handlecast}
+              value={castandcrews.producer}
+            />
+          </div>
+          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center relative">
+            {castandcrews.cast.length && <div className="absolute -top-4 left-28">
+            {castandcrews.cast?.map((item,i) => <span className="text-white px-3 py-1" key={i}>{item}</span>)}
+            </div>}
+            <label className="text-white">Movie Cast:</label>
+            <input
+              type="text"
+              className="w-2/3 text-sm p-2 border-2 focus:border-red-400 outline-none rounded-sm"
+              placeholder="Cast"
+              name="cast"
+              onChange={(e) => setCast(e.target.value)}
+              value={cast}
+            />
+            <button className="bg-white px-3 py-1 absolute -right-16" onClick={(e) => {
+              setCastandcrews({...castandcrews,cast:[...castandcrews.cast,cast]})
+            }} type="submit">Add</button>
           </div>
           <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
             <label className="text-white">Movie Genre:</label>
