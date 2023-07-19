@@ -18,7 +18,7 @@ const ResetPassword = () => {
     setErrorMsg('')
    } catch (error) {
     //console.log(error.response.data);
-    setErrorMsg(error.response.data)
+    setErrorMsg(error.response?.data)
    }
   }
   const resetPassword = async (e) => {
@@ -28,7 +28,6 @@ const ResetPassword = () => {
     navigate('/user/login')
   }
 
-  console.log(id)
   return (
     <div className="w-full lg:w-11/12 mx-auto">
       <div className="mx-auto w-full  lg:w-1/2">

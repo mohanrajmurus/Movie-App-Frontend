@@ -70,7 +70,7 @@ const LoginPage = () => {
               value={user.password}
               onChange={handleChange}
             />
-            <Btn value={"Login"} type={"submit"} width={"full"} />
+            <Btn value={"Login"} type={"submit"} width={"full"} bg={'red-600'}/>
           </form>
          <div className="w-1/2 md:w-full flex justify-center" onClick={()=> navigate('/user/resetpassword')}>
          <LoginWithBtn AuthProvider={"span"} text={"Forgot Password"} />

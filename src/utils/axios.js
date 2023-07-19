@@ -1,11 +1,18 @@
 import axios from 'axios';
 // eslint-disable-next-line no-undef
 const url = API__URL
-export const instance = axios.create({
+const axiosClient = axios.create({
    baseURL:url
   })
-function setAuthToken(token){
-   instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-}
+axiosClient.interceptors.request.use((config) => {
+   const token = JSON.parse(sessionStorage.getItem('user'))?.token;
+   console.log(token);
+   if(token){
+      config.headers.Authorization = `Bearer ${token}`
+   }
+   return config;
+},(error) => {
+   return Promise.reject(error);
+ })
 
-export default setAuthToken;
+export default axiosClient;

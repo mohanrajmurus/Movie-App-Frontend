@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { instance as axios } from './axios'
+import axios from './axios'
 import { useQuery } from "react-query"
+
+const token = JSON.parse(sessionStorage.getItem('user'))?.token;
 export const getAllMovies = () => {
   return useQuery({
     queryKey: ["movies"],
