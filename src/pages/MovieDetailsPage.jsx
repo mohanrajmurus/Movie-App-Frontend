@@ -7,6 +7,7 @@ import MovieReview from '../components/MovieReview'
 const MovieDetailsPage = () => {
   const { id } = useParams()
   const { isLoading, isError, error, data } = getMovieById(id)
+  console.log(data);
   const [switchTap, setSwitchTap] = useState(false)
 
   return (
@@ -85,7 +86,7 @@ const MovieDetailsPage = () => {
                 <div>
                   <h1 className="text-white underline text-sm">Starring</h1>
                   <p className="text-gray-400">
-                    {data.castandcrews.cast.map((item) => `${item}, `)}
+                    {data.castandcrews.cast.join(', ')} and more..
                   </p>
                 </div>
               </div>
