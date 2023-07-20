@@ -20,7 +20,7 @@ const MovieDetailsPage = () => {
         </div>
       ) : (
         <div key={data.id} className=" w-full h-screen">
-          <div className="w-full h-[70%]">
+          <div className="w-full h-[30%] lg:h-[70%]">
             {/*  <Player poster={data.thumbnail} src={data.videoURL} fluid={false} width={'100%'} height={'100%'}>
               <BigPlayButton position="center" />
               <LoadingSpinner />

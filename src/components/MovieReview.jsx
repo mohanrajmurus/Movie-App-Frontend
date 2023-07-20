@@ -5,10 +5,12 @@ const MovieReview = () => {
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
   const [postrate, setPostrate] = useState(false)
+  const [model, setModel] = useState(false)
   return (
     <div className="w-full">
       <div className="w-1/2 flex justify-start items-center space-x-28">
         <div className="flex items-center space-x-2">
+          {" "}
           <div>
             <AiFillStar size={30} fill="#f8ea06" />
           </div>
@@ -48,21 +50,29 @@ const MovieReview = () => {
           </div>
         </div>
       </div>
+      {model && (
+        <div className="w-full">
+          <form></form>
+        </div>
+      )}
       <div className="w-1/2 mt-5">
         <div className="flex justify-start space-x-64">
           <span className="text-2xl font-bold">Reviews</span>
-          <button className="bg-red-500 text-white px-3 py-1">
+          <button
+            className="bg-red-500 text-white px-3 py-1"
+            onClick={() => setModel(!model)}
+          >
             Add Review
           </button>
         </div>
         <div className="flex justify-start space-x-4">
-         <div>image</div>
-         <div className="flex flex-col items-start space-y-3">
-          <span>username</span>
-          <span>title</span>
-          <span>text</span>
-          <span>date</span>
-         </div>
+          <div>image</div>
+          <div className="flex flex-col items-start space-y-3">
+            <span>username</span>
+            <span>title</span>
+            <span>text</span>
+            <span>date</span>
+          </div>
         </div>
       </div>
     </div>

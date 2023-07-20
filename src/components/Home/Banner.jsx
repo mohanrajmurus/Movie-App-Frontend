@@ -42,7 +42,7 @@ const Banner = () => {
           })}
           <span
             onClick={prevSlide}
-            className="absolute top-[50%] right-5 translate-y-[50% bg-gray-100 opacity-30"
+            className="absolute top-[50%] right-5 translate-y-[50% bg-gray-100 opacity-30 z-10"
           >
             <GrNext size={20} fill="white" />
           </span>

@@ -10,13 +10,19 @@ const Header = () => {
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <div className="w-full  bg-black sticky top-0 z-10 mb-5">
+    <div className="w-full  bg-black sticky top-0 z-50 mb-5">
       <nav className="w-11/12 h-[10vh] mx-auto flex justify-between items-center">
         <span
-          className="text-3xl font-extrabold italic text-red-600 cursor-pointer"
+          className="hidden lg:block text-3xl font-extrabold italic text-red-600 cursor-pointer"
           onClick={() => navigate("/")}
         >
           Movie Time
+        </span>
+        <span
+          className="lg:hidden text-3xl font-extrabold italic text-red-600 cursor-pointer"
+          onClick={() => navigate("/")}
+        >
+          MT
         </span>
         <SearchWrapper/>
         <div className="relative">

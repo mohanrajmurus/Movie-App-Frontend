@@ -17,7 +17,7 @@ const SearchWrapper = () => {
     fetchMovies(e.target.value)
   }
   return (
-    <div className="w-1/3 h-full relative">
+    <div className="w-2/4 lg:w-1/3 h-full relative">
       <div className="w-full flex items-center space-x-4 h-full">
         <input
           type="text"
@@ -28,7 +28,7 @@ const SearchWrapper = () => {
         />
         <CiSearch fill="#fff" size={25} className="cursor-pointer" />
       </div>
-      {movies.length && (
+      {movies.length > 0 && (
         <div className="w-full bg-gray-950 text-white absolute top-16 z-10  h-fit">
           {movies.map((movie, i) => {
             return (
