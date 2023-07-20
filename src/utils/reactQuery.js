@@ -2,7 +2,6 @@
 import axios from './axios'
 import { useQuery } from "react-query"
 
-const token = JSON.parse(sessionStorage.getItem('user'))?.token;
 export const getAllMovies = () => {
   return useQuery({
     queryKey: ["movies"],
@@ -42,5 +41,11 @@ export const addNewMovie = async (moviedata) => {
 export const addmovieRating = async(obj) => {
   const {id,userrating} = obj
   const {data} = await axios.post(`/movie/${id}/ratings`,{userrating})
+  return data
+}
+
+export const addReviews = async(obj) => {
+  const {id,comments,} = obj
+  const {data} = await axios.post(`/movie/${id}/reviews`,{comments})
   return data
 }
