@@ -38,3 +38,9 @@ export const addNewMovie = async (moviedata) => {
   const { data } = await axios.post(`/addmovie`, moviedata)
   return data
 }
+
+export const addmovieRating = async(obj) => {
+  const {id,userrating} = obj
+  const {data} = await axios.post(`/movie/${id}/ratings`,{userrating})
+  return data
+}

@@ -1,25 +1,44 @@
-/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
 import React, { useState } from "react"
 import { AiFillStar } from "react-icons/ai"
-const MovieReview = () => {
+import { addmovieRating } from "../utils/reactQuery"
+import { useMutation, useQueryClient } from "react-query"
+const MovieReview = ({ movie }) => {
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
   const [postrate, setPostrate] = useState(false)
   const [model, setModel] = useState(false)
+  const queryClient = useQueryClient();
+  const user = JSON.parse(sessionStorage.getItem('user'))
+  
+  const isRated = movie.ratings?.some(item => item.user === user.id)
+  
+  const { mutate } = useMutation(addmovieRating, {
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey:['movie',movie._id]
+      })
+    },
+  })
+  const submitRating = () => {
+    setPostrate(!postrate)
+    mutate({ id: movie?._id, userrating: rating })
+    setRating(0)
+  }
+  const avgRate = movie.ratings.reduce((acc,curr) => curr.userrating + acc,0)
   return (
     <div className="w-full">
       <div className="w-1/2 flex justify-start items-center space-x-28">
         <div className="flex items-center space-x-2">
-          {" "}
           <div>
             <AiFillStar size={30} fill="#f8ea06" />
           </div>
           <div className="flex flex-col justify-center">
-            <span className="text-sm text-gray-300">4.5/5</span>
-            <span className="text-sm text-gray-300">10K</span>
+            <span className="text-lg text-gray-300 font-bold">{(avgRate / movie.ratings.length).toFixed(2)}</span>
+            <span className="text-sm text-gray-300 italic font-extralight">{movie.ratings.length} count</span>
           </div>
         </div>
-        <div className=" w-full flex space-x-3">
+        {!isRated &&         <div className=" w-full flex space-x-3">
           <div className="mt-4">
             {[...Array(5)].map((item, i) => {
               return (
@@ -40,15 +59,15 @@ const MovieReview = () => {
           </div>
 
           <div className="flex  items-center space-x-4 mt-4">
-            <span className="text-white text-sm">Your Rating: {rating}</span>
+            <span className="text-white text-sm">Your Rating: {movie.ratings.userrating}</span>
             <button
               className="bg-red-500 text-white px-3 py-1"
-              onClick={() => setPostrate(!postrate)}
+              onClick={submitRating}
             >
               Post
             </button>
           </div>
-        </div>
+        </div>}
       </div>
       {model && (
         <div className="w-full">

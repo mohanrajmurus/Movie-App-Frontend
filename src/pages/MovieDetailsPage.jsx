@@ -7,7 +7,6 @@ import MovieReview from '../components/MovieReview'
 const MovieDetailsPage = () => {
   const { id } = useParams()
   const { isLoading, isError, error, data } = getMovieById(id)
-  console.log(data);
   const [switchTap, setSwitchTap] = useState(false)
 
   return (
@@ -57,7 +56,7 @@ const MovieDetailsPage = () => {
             </div>
             {switchTap ? (
               <div className="text-white w-full">
-                <MovieReview/>
+                <MovieReview movie={data}/>
               </div>
             ) : (
               <div className="flex flex-col items-start space-y-4">
