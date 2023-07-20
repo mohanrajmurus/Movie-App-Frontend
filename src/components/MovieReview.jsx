@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react"
 import { AiFillStar } from "react-icons/ai"
 import { addmovieRating, addReviews } from "../utils/reactQuery"
 import { useMutation, useQueryClient } from "react-query"
-import {RxAvatar} from 'react-icons/rx'
+import { RxAvatar } from "react-icons/rx"
 import axios from "../utils/axios"
 const MovieReview = ({ movie }) => {
   const [rating, setRating] = useState(0)
@@ -13,25 +13,25 @@ const MovieReview = ({ movie }) => {
   const queryClient = useQueryClient()
   const user = JSON.parse(sessionStorage.getItem("user"))
   const [users, setUsers] = useState([])
-  useEffect(()=>{
-    const getAllUser = async() => {
-      const {data} = await axios.get('/user')
+  useEffect(() => {
+    const getAllUser = async () => {
+      const { data } = await axios.get("/user")
       setUsers(data)
     }
     getAllUser()
-  },[])
+  }, [])
   const isRated = movie.ratings?.some((item) => item.user === user.id)
 
   const { mutate } = useMutation(addmovieRating, {
     onSuccess: () => {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: ["movie", movie._id],
       })
     },
   })
   const mutation = useMutation(addReviews, {
     onSuccess: () => {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: ["movie", movie._id],
       })
     },
@@ -42,7 +42,7 @@ const MovieReview = ({ movie }) => {
     setRating(0)
   }
   const avgRate = movie.ratings.reduce((acc, curr) => curr.userrating + acc, 0)
- 
+
   return (
     <div className="w-full">
       <div className="w-1/2 flex justify-start items-center space-x-28">
@@ -118,15 +118,26 @@ const MovieReview = ({ movie }) => {
               postedAt,
               comments: { title, body },
             } = item
-            const userName = users.filter(item => item._id === user)              
+            const userName = users.filter((item) => item._id === user)
             return (
-              <div className="review--container flex justify-start space-x-4 mt-5 " key={i} >
-                <div><RxAvatar size={40}/></div>
+              <div
+                className="review--container flex justify-start space-x-4 mt-5 "
+                key={i}
+              >
+                <div>
+                  <RxAvatar size={40} />
+                </div>
                 <div className="flex flex-col items-start space-y-4">
-                  <span className=" font-bold text-lg text-slate-500">{userName[0]?.name}</span>
-                  <span className="font-bold text-lg text-gray-200">{title}</span>
+                  <span className=" font-bold text-lg text-slate-500">
+                    {userName[0]?.name}
+                  </span>
+                  <span className="font-bold text-lg text-gray-200">
+                    {title}
+                  </span>
                   <span className="font-light  text-gray-500">{body}</span>
-                  <span className="font-light  text-gray-500 py-5">PostedAt: {new Date(postedAt).toDateString()}</span>
+                  <span className="font-light  text-gray-500 py-5">
+                    PostedAt: {new Date(postedAt).toDateString()}
+                  </span>
                 </div>
               </div>
             )

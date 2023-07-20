@@ -149,7 +149,7 @@ const PostMovieDetails = () => {
           </div>
           <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center relative">
             {castandcrews.cast.length && <div className="absolute -top-4 left-28">
-            {castandcrews.cast?.map((item,i) => <span className="text-white px-3 py-1" key={i}>{item}</span>)}
+            {castandcrews.cast?.map((item,i) => <span className="text-white px-3 py-1 border-2 rounded-3xl" key={i}>{item}</span>)}
             </div>}
             <label className="text-white">Movie Cast:</label>
             <input
