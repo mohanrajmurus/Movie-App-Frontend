@@ -24,7 +24,7 @@ export const getMovieById = (id) => {
 
 export const getMovieRating = (id) => {
   return useQuery({
-    queryKey:['reviews',id],
+    queryKey:['ratings',id],
     queryFn:async() => {
       const {data} = await axios.get(`/movie/${id}/ratings`)
       return data
@@ -36,6 +36,7 @@ export const getMovieReviews = (id) => {
     queryKey:['reviews',id],
     queryFn:async() => {
       const {data} = await axios.get(`/movie/${id}/reviews`)
+      
       return data
     }
   })
@@ -58,13 +59,18 @@ export const addNewMovie = async (moviedata) => {
 }
 
 export const addmovieRating = async(obj) => {
-  const {id,userrating} = obj
-  const {data} = await axios.post(`/movie/${id}/ratings`,{userrating})
+  const {id,ratings} = obj
+  const {data} = await axios.post(`/movie/${id}/ratings`,{ratings})
   return data
 }
 
 export const addReviews = async(obj) => {
   const {id,comments,} = obj
   const {data} = await axios.post(`/movie/${id}/reviews`,{comments})
+  return data
+}
+
+export const addtoWatchlist = async(id) => {
+  const {data} = await axios.post(`/movie/${id}/watchlist`)
   return data
 }
