@@ -34,7 +34,7 @@ const SearchWrapper = () => {
             return (
               <div
                 key={i}
-                className="w-full hover:bg-gray-800 cursor-pointer"
+                className="w-full hover:bg-gray-800 cursor-pointer py-3"
                 onClick={() => {
                   navigate(`/movie/${movie._id}`)
                   setSearchKey("")

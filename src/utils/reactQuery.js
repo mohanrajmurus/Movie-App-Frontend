@@ -21,6 +21,25 @@ export const getMovieById = (id) => {
     },
   })
 }
+
+export const getMovieRating = (id) => {
+  return useQuery({
+    queryKey:['reviews',id],
+    queryFn:async() => {
+      const {data} = await axios.get(`/movie/${id}/ratings`)
+      return data
+    }
+  })
+}
+export const getMovieReviews = (id) => {
+  return useQuery({
+    queryKey:['reviews',id],
+    queryFn:async() => {
+      const {data} = await axios.get(`/movie/${id}/reviews`)
+      return data
+    }
+  })
+}
 export const createAccount = async(user) => {
   const {data} = await axios.post(`/user`,user)
   return data

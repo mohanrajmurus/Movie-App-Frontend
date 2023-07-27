@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react"
 import { AiFillStar } from "react-icons/ai"
-import { addmovieRating, addReviews } from "../utils/reactQuery"
+import { addmovieRating, addReviews, getMovieRating } from "../utils/reactQuery"
 import { useMutation, useQueryClient } from "react-query"
 import { RxAvatar } from "react-icons/rx"
 import axios from "../utils/axios"
-const MovieReview = ({ movie }) => {
+import { useParams } from "react-router-dom"
+const MovieReview = () => {
+  const { id } = useParams()
   const [rating, setRating] = useState(0)
   const [hover, setHover] = useState(0)
   const [postrate, setPostrate] = useState(false)
@@ -13,6 +15,7 @@ const MovieReview = ({ movie }) => {
   const queryClient = useQueryClient()
   const user = JSON.parse(sessionStorage.getItem("user"))
   const [users, setUsers] = useState([])
+  const { isLoading, isError, error, data } = getMovieRating(id)
   useEffect(() => {
     const getAllUser = async () => {
       const { data } = await axios.get("/user")
@@ -20,7 +23,7 @@ const MovieReview = ({ movie }) => {
     }
     getAllUser()
   }, [])
-  const isRated = movie.ratings?.some((item) => item.user === user.id)
+  /* const isRated = movie.ratings?.some((item) => item.user === user.id)
 
   const { mutate } = useMutation(addmovieRating, {
     onSuccess: () => {
@@ -41,25 +44,36 @@ const MovieReview = ({ movie }) => {
     mutate({ id: movie?._id, userrating: rating })
     setRating(0)
   }
-  const avgRate = movie.ratings.reduce((acc, curr) => curr.userrating + acc, 0)
+  const avgRate = movie.ratings.reduce((acc, curr) => curr.userrating + acc, 0) */
+  if (isLoading) {
+    return (
+      <div className="border-4 border-gray-300 border-t-red-400 rounded-full h-10 w-10 animate-spin text-center mt-10"></div>
+    )
+  }
 
   return (
     <div className="w-full">
-      <div className="w-1/2 flex justify-start items-center space-x-28">
-        <div className="flex items-center space-x-2">
-          <div>
-            <AiFillStar size={30} fill="#f8ea06" />
-          </div>
-          <div className="flex flex-col justify-center">
-            <span className="text-lg text-gray-300 font-bold">
-              {(avgRate / movie.ratings.length).toFixed(2)}
-            </span>
-            <span className="text-sm text-gray-300 italic font-extralight">
-              {movie.ratings.length} count
-            </span>
-          </div>
-        </div>
-        {!isRated && (
+      <div>
+        <div className="w-1/2 flex justify-start items-center space-x-28">
+          {data.length > 0  && (
+            <div className="flex items-center space-x-2">
+              <div>
+                <AiFillStar size={30} fill="#f8ea06" />
+              </div>
+              <div className="flex flex-col justify-center">
+                <span className="text-lg text-gray-300 font-bold">
+                  {(
+                    data?.reduce((acc, curr) => (acc += curr.ratings), 0) /
+                    data.length
+                  ).toFixed(2)}
+                </span>
+                <span className="text-sm text-gray-300 italic font-extralight">
+                  {data.length} count
+                </span>
+              </div>
+            </div>
+          )}
+          {/* {!isRated && (
           <div className=" w-full flex space-x-3">
             <div className="mt-4">
               {[...Array(5)].map((item, i) => {
@@ -112,7 +126,7 @@ const MovieReview = ({ movie }) => {
           </button>
         </div>
         <div>
-          {movie.reviews.map((item, i) => {
+          {movie?.reviews.map((item, i) => {
             const {
               user,
               postedAt,
@@ -142,6 +156,7 @@ const MovieReview = ({ movie }) => {
               </div>
             )
           })}
+        </div> */}
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import axios from "axios"
+// eslint-disable-next-line no-undef
 const url = API__URL
 
 export const getImageURL = async (file,title) => {

@@ -5,35 +5,37 @@ import { useQueryClient, useMutation } from "react-query"
 import { addNewMovie } from "../../utils/reactQuery"
 import { getImageURL, getVideoURL } from "../../utils/cloudinary"
 import { Outlet, useNavigate } from "react-router-dom"
-
+import { MdAdd, MdClose } from "react-icons/md"
 const PostMovieDetails = () => {
   const queryClient = useQueryClient()
   const navigate = useNavigate()
-  const user = JSON.parse(sessionStorage.getItem('user'))
+  const user = JSON.parse(sessionStorage.getItem("user"))
+  const [loading, setLoading] = useState(false)
   const [movieDetails, setmovieDetails] = useState({
     title: "",
     genre: "",
-    castandcrews:{},
+    castandcrews: {},
     description: "",
     thumbnail: "",
     imageURL: "",
     videoURL: "",
   })
   const [castandcrews, setCastandcrews] = useState({
-    director:'',
-    music_dir:'',
-    producer:'',
-    cast:[]
+    director: "",
+    music_dir: "",
+    producer: "",
+    cast: [],
   })
-  const [cast,setCast] = useState('')
+  const [cast, setCast] = useState("")
   useEffect(() => {
-    if(!user?.isAdmin){
-      navigate('/')
+    if (!user?.isAdmin) {
+      navigate("/")
     }
-  },[])
+  }, [])
 
   const { mutate } = useMutation(addNewMovie, {
     onSuccess: (data) => {
+      setLoading(false)
       //console.log(data)
       console.log("Success")
       navigate("/")
@@ -49,12 +51,12 @@ const PostMovieDetails = () => {
       [e.target.name]: e.target.value,
     })
   }
-  const handlecast = (e)=>{
+  const handlecast = (e) => {
     setCastandcrews({
       ...castandcrews,
-      [e.target.name]:e.target.value
+      [e.target.name]: e.target.value,
     })
-  }  
+  }
   const handleFile = (e) => {
     const file = e.target.files[0]
     const reader = new FileReader()
@@ -68,20 +70,27 @@ const PostMovieDetails = () => {
   }
   const submitData = async () => {
     try {
-      const image = await getImageURL(movieDetails.imageURL,`${movieDetails.title}_image`)
-      const thumb = await getImageURL(movieDetails.thumbnail,`${movieDetails.title}_poster`)
-      const video = await getVideoURL(movieDetails.videoURL,movieDetails.title)
-      
+      setLoading(true)
+      const image = await getImageURL(
+        movieDetails.imageURL,
+        `${movieDetails.title}_image`
+      )
+      const thumb = await getImageURL(
+        movieDetails.thumbnail,
+        `${movieDetails.title}_poster`
+      )
+      const video = await getVideoURL(movieDetails.videoURL, movieDetails.title)
+
       const obj = {
         title: movieDetails.title,
-        castandcrews:castandcrews,
+        castandcrews: castandcrews,
         genre: movieDetails.genre,
         description: movieDetails.description,
         thumbnail: thumb,
         imageURL: image,
         videoURL: video,
       }
-      console.log(obj);
+      console.log(obj)
       mutate(obj)
       setmovieDetails({
         title: "",
@@ -96,13 +105,16 @@ const PostMovieDetails = () => {
     }
   }
   return (
-    <div className="w-full lg:w-2/5 mx-auto">
+    <div className="w-11/12 mx-auto">
+      {loading && (
+        <div className=" absolute top-[50%] left-[40%] border-4 border-gray-300 border-t-red-400 rounded-full h-10 w-10 animate-spin text-center mt-10"></div>
+      )}
       <p className="w-full text-white font-extrabold text-2xl text-center">
         Add New Movie to DataBase
       </p>
-      
+
       <div className="mt-10">
-        <div className="flex flex-col space-y-8">
+        <div className="w-full grid grid-cols-2 gap-2">
           <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
             <label className="text-white">Movie Title:</label>
             <input
@@ -147,22 +159,45 @@ const PostMovieDetails = () => {
               value={castandcrews.producer}
             />
           </div>
-          <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center relative">
-            {castandcrews.cast.length && <div className="absolute -top-4 left-28">
-            {castandcrews.cast?.map((item,i) => <span className="text-white px-3 py-1 border-2 rounded-3xl" key={i}>{item}</span>)}
-            </div>}
-            <label className="text-white">Movie Cast:</label>
-            <input
-              type="text"
-              className="w-2/3 text-sm p-2 border-2 focus:border-red-400 outline-none rounded-sm"
-              placeholder="Cast"
-              name="cast"
-              onChange={(e) => setCast(e.target.value)}
-              value={cast}
-            />
-            <button className="bg-white px-3 py-1 absolute -right-16" onClick={(e) => {
-              setCastandcrews({...castandcrews,cast:[...castandcrews.cast,cast]})
-            }} type="submit">Add</button>
+          <div className="h-fit">
+            <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center relative">
+              <label className="text-white">Movie Cast:</label>
+              <input
+                type="text"
+                className="w-2/3 text-sm p-2 border-2 focus:border-red-400 outline-none rounded-sm"
+                placeholder="Cast"
+                name="cast"
+                onChange={(e) => setCast(e.target.value)}
+                value={cast}
+              />
+              <MdAdd
+                className="absolute right-0 cursor-pointer"
+                size={35}
+                onClick={(e) => {
+                  setCastandcrews({
+                    ...castandcrews,
+                    cast: [...castandcrews.cast, cast],
+                  })
+                  setCast("")
+                }}
+              />
+            </div>
+            {/*  <button className="bg-white px-3 py-1" onClick={(e) => {
+             setCastandcrews({...castandcrews,cast:[...castandcrews.cast,cast]})
+           }} type="submit">Add</button> */}
+            {castandcrews.cast.length && (
+              <div className="mt-4">
+                {castandcrews.cast?.map((item, i) => (
+                  <span
+                    className="text-white px-4 py-1 border-2 rounded-3xl relative ml-1"
+                    key={i}
+                  >
+                    <span className="mr-3">{item}</span>
+                    <span className="absolute right-1 top-1 cursor-pointer"><MdClose size={20}/></span>
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
           <div className="w-full lg:w-4/5 flex flex-col space-y-3 lg:flex-row justify-between items-center ">
             <label className="text-white">Movie Genre:</label>
@@ -216,12 +251,12 @@ const PostMovieDetails = () => {
               className="text-gray-300"
             />
           </div>
-          <div className="w-full flex justify-center">
+          <div className=" mt-5">
             <button
-              className=" text-center text-red-500 bg-white px-3 py-1 font-bold "
+              className=" text-center text-black bg-white px-3 py-1 font-bold "
               onClick={submitData}
             >
-              Submit
+              ADD
             </button>
           </div>
         </div>

@@ -1,14 +1,19 @@
-import { useParams } from "react-router-dom"
+import { NavLink, Outlet, useLocation, useNavigate, useParams } from "react-router-dom"
 import { getMovieById } from "../utils/reactQuery"
 import { BigPlayButton, LoadingSpinner, Player } from "video-react"
 import "../../node_modules/video-react/dist//video-react.css"
 import { useState } from "react"
-import MovieReview from '../components/MovieReview'
+import MovieReview from "../components/MovieReview"
+import MovieSummary from "../components/MovieSummary"
+import {Tab,TabList,TabPanel, Tabs} from 'react-tabs'
+import 'react-tabs/style/react-tabs.css';
+
 const MovieDetailsPage = () => {
   const { id } = useParams()
   const { isLoading, isError, error, data } = getMovieById(id)
   const [switchTap, setSwitchTap] = useState(false)
-
+  const navigate = useNavigate()
+  const currLoc = useLocation()
   return (
     <div className="w-11/12 mx-auto mt-10 flex justify-center">
       {isLoading ? (
@@ -33,63 +38,43 @@ const MovieDetailsPage = () => {
             ></video>
           </div>
           <div className="w-full flex flex-col items-start space-y-1">
-            <span className="text-white text-3xl font-bold italic">
-              {data.title}
-            </span>
-            <div className="w-full flex justify-center items-center">
-              <span
-                className={`text-gray-500 font-bold px-3 py-1 cursor-pointer ${
-                  switchTap ? "bg-white text-black" : ""
-                }`}
-                onClick={() => setSwitchTap(true)}
-              >
-                Reviews
+            <div className="flex items-center space-x-5 mt-5">
+              <span className="text-white text-3xl font-bold italic">
+                {data.title}
               </span>
-              <span
-                className={`text-gray-500 font-bold px-3 py-1 cursor-pointer ${
-                  !switchTap ? "bg-white text-black" : ""
-                }`}
-                onClick={() => setSwitchTap(false)}
-              >
-                Details
+              <span className="text-white text-sm font-semibold py-1 px-3 bg-red-500 mt-2 cursor-pointer">
+                + WatchList
               </span>
             </div>
-            {switchTap ? (
-              <div className="text-white w-full">
-                <MovieReview movie={data}/>
-              </div>
-            ) : (
-              <div className="flex flex-col items-start space-y-4">
-                <div>
-                  <h1 className="text-white underline text-sm">Story Line</h1>
-                  <p className="text-gray-400">{data.description}</p>
-                </div>
-                <div>
-                  <h1 className="text-white underline text-sm">Genre</h1>
-                  <p className="text-gray-400">{data.genre}</p>
-                </div>
-                <div>
-                  <h1 className="text-white underline text-sm">Director</h1>
-                  <p className="text-gray-400">{data.castandcrews.director}</p>
-                </div>
-                <div>
-                  <h1 className="text-white underline text-sm">Producer</h1>
-                  <p className="text-gray-400">{data.castandcrews.producer}</p>
-                </div>
-                <div>
-                  <h1 className="text-white underline text-sm">
-                    Music Director
-                  </h1>
-                  <p className="text-gray-400">{data.castandcrews.music_dir}</p>
-                </div>
-                <div>
-                  <h1 className="text-white underline text-sm">Starring</h1>
-                  <p className="text-gray-400">
-                    {data.castandcrews.cast.join(', ')} and more..
-                  </p>
-                </div>
-              </div>
-            )}
+            <div className="w-full">
+              <Tabs className={'w-full'}>
+                <TabList className={'text-white flex justify-center items-center space-x-3'} >
+                    
+                    <Tab className={'px-3 py-1 border-none cursor-pointer'} defaultFocus={false}>Details</Tab>
+                    <Tab className={'px-3 py-1 border-none cursor-pointer'}>Review</Tab>
+                </TabList>
+                
+                <TabPanel>
+                  <MovieSummary/>
+                </TabPanel>
+                <TabPanel>
+                  <MovieReview/>
+                </TabPanel>
+              </Tabs>
+              {/* <NavLink
+                to={`/movie/${id}/reviews`}
+                className={({isActive}) => (isActive ? 'text-black bg-white font-bold px-3 py-1 cursor-pointer':'text-gray-500 font-bold px-3 py-1 cursor-pointer')}
+              >
+                Reviews
+              </NavLink>
+              <NavLink
+                className={({isActive}) => (isActive ? 'text-black bg-white font-bold px-3 py-1 cursor-pointer':'text-gray-500 font-bold px-3 py-1 cursor-pointer')}
+                to={`/movie/${id}/details`}
+              >
+                Details
+              </NavLink> */}
+            </div>
+            <Outlet />
           </div>
         </div>
       )}
